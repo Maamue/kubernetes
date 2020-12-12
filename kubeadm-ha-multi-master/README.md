@@ -47,6 +47,8 @@ backend kubernetes-backend
     server kmaster1 172.16.16.101:6443 check fall 3 rise 2
     server kmaster2 172.16.16.102:6443 check fall 3 rise 2
 ```
+It may be necessary to comment out the backend server from which the cluster will not be initialized.
+Otherwise haproxy may pass replies to the wrong backend server.
 ##### Restart haproxy service
 ```
 systemctl restart haproxy

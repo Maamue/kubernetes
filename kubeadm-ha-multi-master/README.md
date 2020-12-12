@@ -137,3 +137,29 @@ kubectl get cs
 ```
 
 Have Fun!!
+
+## failing connection to kubelet
+A vagrant setup is prone to one common failure - the wrong network interface will be selected by 
+the kubelet to communicate (IP address of eth0 instead of eth1). To mitigate this, the kubelet 
+service needs to be altered in `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` with 
+```
+Environment="KUBELET_EXTRA_ARGS=--node-ip=<worker IP address>"
+```
+or set it in `/etc/default/kubelet`
+```
+KUBELET_EXTRA_ARGS="--node-ip=<worker IP address>"
+```
+
+A restart of the kubelet on each worker node is required
+```
+systemctl restart kubelet
+```
+
+This must be done on every worker node. Following the example address schema, this would result in:
+```
+root@kworker1:~# cat /etc/default/kubelet
+KUBELET_EXTRA_ARGS="--node-ip=172.16.16.201"
+
+root@kworker2:~# cat /etc/default/kubelet
+KUBELET_EXTRA_ARGS="--node-ip=172.16.16.202"
+```

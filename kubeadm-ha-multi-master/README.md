@@ -69,6 +69,19 @@ net.bridge.bridge-nf-call-iptables = 1
 EOF
 sysctl --system
 ```
+#### all in one
+```
+{
+    apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    apt update && apt install -y docker-ce=5:19.03.10~3-0~ubuntu-focal containerd.io
+    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+    echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
+    apt update && apt install -y kubeadm=1.20.0-00 kubelet=1.20.0-00 kubectl=1.20.0-00
+    kubeadm config images pull --kubernetes-version "1.20.0"
+  }
+  ```
 ##### Install docker engine
 ```
 {
@@ -88,7 +101,7 @@ sysctl --system
 ```
 ##### Install Kubernetes components
 ```
-apt update && apt install -y kubeadm=1.19.2-00 kubelet=1.19.2-00 kubectl=1.19.2-00
+apt update && apt install -y kubeadm=1.20.0-00 kubelet=1.20.0-00 kubectl=1.20.0-00
 ```
 ## On any one of the Kubernetes master node (Eg: kmaster1)
 ##### Initialize Kubernetes Cluster

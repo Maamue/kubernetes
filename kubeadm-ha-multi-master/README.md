@@ -163,3 +163,9 @@ KUBELET_EXTRA_ARGS="--node-ip=172.16.16.201"
 root@kworker2:~# cat /etc/default/kubelet
 KUBELET_EXTRA_ARGS="--node-ip=172.16.16.202"
 ```
+
+## missing leader
+Kubernetes expects a 2k+1 setup for a multi-master architecture. It is advisable to add a 3rd master 
+node to this setup. This puts a strain on the hardware though, even on a 16 GB RAM Notebook the
+resources often are not sufficient, killing one master off, because not enough CPU time was allocated
+to it. maybe more modern hardware is more capable. Keep that in mind when trying it out on your own.

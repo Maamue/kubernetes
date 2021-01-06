@@ -13,6 +13,8 @@ This documentation guides you in setting up a cluster with two master nodes, one
 
 > * Password for the **root** account on all these virtual machines is **kubeadmin**
 > * Perform all the commands as root user unless otherwise specified
+> * Kubernetes expects 2k+1 master, otherwise the leader election algorithm (RAFT) may fail. 
+Having an even numer of masters is to avoid. One master is in this case even better than 2.
 
 ## Pre-requisites
 If you want to try this in a virtualized environment on your workstation
